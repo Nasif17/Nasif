@@ -26,8 +26,39 @@ const CREDENTIALS = [
     id: "icca-2026", title: "ICCA 2026 — Healthcare Research Presentation",
     issuer: "4th International Conference on Computing Advancements (ICCA)", date: "15–16 October 2026", year: "2026", category: "research",
     kind: "Certificate of presentation", idNumber: "icca2026-presenter-360",
-    description: "Presented Paper 360, 'A Cost-Effective Smart Healthcare System to Automatically Log Medications and Support Patient Adherence,' at ICCA 2026.",
+    description: "Presented Paper 360, 'A Cost-Effective Smart Healthcare System to Automatically Log Medications and Support Patient Adherence,' at the 4th International Conference on Computing Advancements on 15–16 October 2026, with affiliation to American International University-Bangladesh. The presentation certificate was issued on 16 October 2026.",
     thumbnail: "icca-2026-presentation.webp", original: "icca-2026-presentation.pdf"
+  },
+  {
+    id: "iconeect-2026-sharp", title: "iCONEECT 2026 — SHARP Research Presentation",
+    issuer: "Premier University · iCONEECT 2026", date: "25–26 September 2026", year: "2026", category: "research",
+    kind: "Certificate of presentation", idNumber: "Paper ID 271",
+    description: "Presented Paper 271, 'SHARP: Content-Fingerprint Anchoring for Self-Healing File-Reference Resolution Across Local and Cloud Storage,' at iCONEECT 2026, held at Premier University, Chattogram, Bangladesh, on 25–26 September 2026. The author team's certificate of appreciation is also attached to this entry.",
+    thumbnail: "iconeect-2026-sharp-presentation.webp", original: "iconeect-2026-sharp-presentation.pdf",
+    additionalDocuments: [
+      { label: "Open author appreciation certificate", original: "iconeect-2026-sharp-appreciation.pdf" }
+    ]
+  },
+  {
+    id: "iconeect-2026-clusterflow", title: "iCONEECT 2026 — ClusterFlow Research Appreciation",
+    issuer: "Premier University · iCONEECT 2026", date: "25–26 September 2026", year: "2026", category: "research",
+    kind: "Certificate of appreciation", idNumber: "Paper ID 272",
+    description: "Co-authored Paper 272, 'ClusterFlow: A Temporal Measurement-Based Quantum Computing Simulation Framework for Resource-Optimized and Loss-Aware Cluster-State Subroutines.' The certificate recognizes the author team for research accepted and presented at iCONEECT 2026, held at Premier University, Chattogram, Bangladesh, on 25–26 September 2026.",
+    thumbnail: "iconeect-2026-clusterflow-appreciation.webp", original: "iconeect-2026-clusterflow-appreciation.pdf"
+  },
+  {
+    id: "icei-2026", title: "ICEI 2026 — Conference Participation",
+    issuer: "Bangladesh Electronics and Informatics Society (BEIS)", date: "7–8 May 2026", year: "2026", category: "events",
+    kind: "Certificate of participation", idNumber: "",
+    description: "Participated in the International Conference on Electronics and Informatics 2026 (ICEI 2026), organized by the Bangladesh Electronics and Informatics Society at the Atomic Energy Centre, Dhaka, on 7–8 May 2026, with affiliation to American International University-Bangladesh.",
+    thumbnail: "icei-2026-participation.webp", original: "icei-2026-participation.pdf"
+  },
+  {
+    id: "ieee-membership-2026", title: "IEEE Student Membership — 2026",
+    issuer: "IEEE · Bangladesh Section", date: "Valid through 31 December 2026", year: "2026", category: "membership",
+    kind: "Student membership card", idNumber: "101007666",
+    description: "IEEE Student Member in the Bangladesh Section for the 2026 membership year. The digital membership card records member number 101007666 and is valid through 31 December 2026.",
+    thumbnail: "ieee-membership-2026.webp", original: "ieee-membership-2026.pdf"
   },
   {
     id: "kaggle-ml", title: "Intro to Machine Learning",
@@ -112,7 +143,8 @@ const categoryLabel = {
   technical: "Technical & Data",
   research: "Research",
   leadership: "Leadership",
-  events: "Events & Community"
+  events: "Events & Community",
+  membership: "Memberships"
 };
 
 const certRoot = "./assets/certificates/";
@@ -138,28 +170,28 @@ function renderCertificates() {
   const term = search.value.toLowerCase().trim();
   const shown = CREDENTIALS.filter(item => {
     const categoryMatch = activeFilter === "all" || item.category === activeFilter;
-    const matchesText = [item.title, item.issuer, item.kind, item.year, item.description]
+    const matchesText = [item.title, item.issuer, item.kind, item.date, item.year, item.idNumber, item.description]
       .join(" ").toLowerCase().includes(term);
     return categoryMatch && matchesText;
   });
 
   grid.innerHTML = shown.map((item, i) => `
-    <button class="certificate-card" type="button" data-certificate-id="${item.id}" aria-label="View certificate: ${escapeText(item.title)}">
+    <button class="certificate-card" type="button" data-certificate-id="${item.id}" aria-label="View credential: ${escapeText(item.title)}">
       <div class="certificate-preview">
         <span class="certificate-card-num">${String(i + 1).padStart(2, "0")}</span>
         <span class="certificate-open-icon" aria-hidden="true">↗</span>
-        <img src="${certRoot + item.thumbnail}" alt="Preview of ${escapeText(item.title)} certificate" loading="lazy">
+        <img src="${certRoot + item.thumbnail}" alt="Preview of ${escapeText(item.title)} document" loading="lazy">
       </div>
       <div class="certificate-info">
         <div class="certificate-tagline"><span>${escapeText(categoryLabel[item.category])}</span><span>${item.year}</span></div>
         <h3>${escapeText(item.title)}</h3>
         <p class="certificate-issuer">${escapeText(item.issuer)}</p>
-        <div class="certificate-info-footer"><span>ORIGINAL DOCUMENT</span><span>INSPECT ↗</span></div>
+        <div class="certificate-info-footer"><span>${item.additionalDocuments?.length ? `${item.additionalDocuments.length + 1} ORIGINAL DOCUMENTS` : "ORIGINAL DOCUMENT"}</span><span>INSPECT ↗</span></div>
       </div>
     </button>
   `).join("");
 
-  document.getElementById("result-count").textContent = `${shown.length} ${shown.length === 1 ? "certificate" : "certificates"}`;
+  document.getElementById("result-count").textContent = `${shown.length} ${shown.length === 1 ? "credential" : "credentials"}`;
   document.getElementById("empty-certificates").hidden = shown.length > 0;
 }
 
@@ -169,7 +201,7 @@ function openCertificate(id) {
   const position = CREDENTIALS.indexOf(certificate) + 1;
 
   document.getElementById("dialog-image").src = certRoot + certificate.thumbnail;
-  document.getElementById("dialog-image").alt = "Original certificate preview: " + certificate.title;
+  document.getElementById("dialog-image").alt = "Document preview: " + certificate.title;
   document.getElementById("dialog-title").textContent = certificate.title;
   document.getElementById("dialog-index").textContent = String(position).padStart(2, "0") + " / " + CREDENTIALS.length;
   document.getElementById("dialog-type").textContent = certificate.kind.toUpperCase();
@@ -179,6 +211,12 @@ function openCertificate(id) {
   document.getElementById("dialog-id-wrap").hidden = !certificate.idNumber;
   document.getElementById("dialog-id").textContent = certificate.idNumber;
   document.getElementById("dialog-document").href = certRoot + certificate.original;
+  const additionalDocuments = certificate.additionalDocuments || [];
+  const documentLinks = document.getElementById("dialog-additional-documents");
+  documentLinks.innerHTML = additionalDocuments.map(document => `
+    <a href="${escapeText(certRoot + document.original)}" target="_blank" rel="noopener noreferrer">${escapeText(document.label)} <span aria-hidden="true">↗</span></a>
+  `).join("");
+  documentLinks.hidden = additionalDocuments.length === 0;
   dialog.showModal();
   document.body.style.overflow = "hidden";
 }

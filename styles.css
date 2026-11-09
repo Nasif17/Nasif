@@ -260,6 +260,9 @@ h1,h2,h3,h4,p { margin-top: 0; }
 .modal-action-box > span i { font-style: normal; font-size: 8px; }
 .modal-action-box p { font-size: 11px; line-height: 1.6; color: #718078; margin: 10px 0 16px; }
 .modal-action-box .btn { width: 100%; min-height: 48px; }
+.modal-additional-documents { display: grid; gap: 10px; margin-top: 15px; }
+.modal-additional-documents a { color: #245e43; font-size: 12px; line-height: 1.6; text-decoration: underline; text-underline-offset: 4px; }
+.modal-additional-documents a:hover { color: #16222b; }
 
 /* About and experience */
 .about-section { background: #0b111d; }
@@ -267,6 +270,8 @@ h1,h2,h3,h4,p { margin-top: 0; }
 .about-statement h2 { margin-bottom: 35px; }
 .about-statement > p { max-width: 525px; color: #a6b5c6; line-height: 1.9; font-size: 15px; margin-bottom: 21px; }
 .about-statement strong { color: var(--white); }
+.about-statement p a { color: var(--cyan); text-decoration: underline; text-underline-offset: 4px; }
+.about-statement p a:hover { color: var(--lime); }
 .about-cv { margin-top: 16px; }
 .detail-card, .skills-box { background: #131d2c; padding: 27px 30px; border: 1px solid var(--line); border-radius: 4px; }
 .education-card { margin-bottom: 18px; position: relative; overflow: hidden; }

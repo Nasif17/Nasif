@@ -22,7 +22,7 @@ A responsive, dependency-free personal portfolio built with **HTML, CSS and Java
 
 ## Accuracy notes
 
-The 15 displayed credentials are based on original documents supplied by Nasif. A document being displayed is **not** a claim that the issuer independently verified it through an online registry.
+The 19 displayed credentials are based on 20 original documents supplied by Nasif, including ICEI 2026 conference participation, IEEE Student Membership for 2026, and iCONEECT 2026 research certificates. The SHARP presentation and author appreciation certificates are grouped under one entry for Paper 271; ClusterFlow's author appreciation certificate has its own entry for Paper 272. The ICCA 2026 presentation certificate is included once. A document being displayed is **not** a claim that the issuer independently verified it through an online registry.
 
 Items recorded in a CV but lacking an original supporting certificate have not been added to the document-backed gallery. A published research-paper DOI is linked externally.
 
